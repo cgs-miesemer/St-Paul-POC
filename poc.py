@@ -64,9 +64,9 @@ if st.button("Authenticate M5"):
             st.error(f"Error parsing response: {e}")
 
 # ------------------------------------------------------
-# Step 2: Get Asset 2140 from M5
+# Step 2: Get Asset 2057 from M5
 # ------------------------------------------------------
-st.header("Step 2. Get Asset 2140 from M5")
+st.header("Step 2. Get Asset 2057 from M5")
 
 if st.button("Get Asset Info"):
     token = st.session_state.get("m5_token")
@@ -74,7 +74,7 @@ if st.button("Get Asset Info"):
     if not token:
         st.warning("Please authenticate to M5 first.")
     else:
-        url = "https://fleetfocustest.assetworks.com/APItest/api/v1/assets/2140"
+        url = "https://fleetfocustest.assetworks.com/APItest/api/v1/assets/2057"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {token}"
@@ -205,7 +205,7 @@ if st.button("Prepare Geotab Comment Update"):
             "method": "Get",
             "params": {
                 "typeName": "Device",
-                "search": {"name": "2140%"},
+                "search": {"name": "2057%"},
                 "credentials": creds
             },
             "id": 1,
@@ -215,7 +215,7 @@ if st.button("Prepare Geotab Comment Update"):
         devices = r_get.json().get("result", [])
 
         if not devices:
-            st.error("No Geotab device found with name beginning with 2140.")
+            st.error("No Geotab device found with name beginning with 2057.")
         else:
             device = devices[0]
             st.session_state["geotab_device"] = device
@@ -336,7 +336,7 @@ job_comment = st.text_area("Route Note / Comment",
 scheduled_date_iso = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 # Create work order number automatically
-work_order_number = f"M5-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+work_order_number = f"M5-{datetime.now().strftime('%Y%m%d')}"
 
 if st.button("Create Routeware Job_"):
     if not routeware_api_key:
@@ -345,7 +345,7 @@ if st.button("Create Routeware Job_"):
         job_body = {
             "workOrderNumber": work_order_number,
             "jobDate": scheduled_date_iso,
-            "serviceContractId": 0,
+            "serviceContractId": 39916091,
             "vehicleTypeId": vehicle_type_id,
             "pickupTypeId": pickup_type_id,
             "routeNote": job_comment,
